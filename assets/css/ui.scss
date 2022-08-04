@@ -1,0 +1,116 @@
+$buttonBGColor: #7BAE73;
+$buttonBGColorOff: #EEEEEE;
+
+.ui_component {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin: 10px 0;
+  position: relative;
+  padding-bottom: 18px;
+
+  .title {
+    margin-bottom: 4px;
+    font-size: 15px;
+    //line-height: 12px;
+  }
+
+  input, select {
+    background: #FFFEFB;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+    border-radius: 4px;
+    height: 36px;
+    padding: 0 16px;
+    font-size: 14px;
+    transition: all 200ms;
+    margin-bottom: 4px;
+    border: 1px solid transparent;
+  }
+
+  textarea {
+    background: #FFFEFB;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+    border-radius: 4px;
+    height: 36px;
+    border: none;
+    padding: 0 16px;
+    font-size: 14px;
+    margin-bottom: 4px;
+
+    max-width: 100%;
+    min-width: 100%;
+    max-height: 200px;
+    min-height: 40px;
+  }
+
+  .error_text {
+    position: absolute;
+    bottom: 0;
+    color: #FF8484;
+    //font-size: 8px;
+    opacity: 0;
+    transition: opacity 200ms;
+  }
+
+  &.error {
+    .error_text {
+      opacity: 1;
+    }
+
+    input {
+      border: 1px solid #FF8484;
+    }
+  }
+
+  &.required {
+    .title {
+      &:after {
+        content: "";
+        background: #FF8484;
+        width: 4px;
+        height: 4px;
+        border-radius: 100%;
+        position: absolute;
+      }
+    }
+  }
+}
+
+
+button {
+  width: 100%;
+  height: 36px;
+  font-size: 12px;
+  border: none;
+  cursor: pointer;
+  border-radius: 10px;
+  background: $buttonBGColor;
+  color: white;
+  font-family: Inter, sans-serif;
+  font-weight: 600;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+  transition: background-color 200ms, color 200ms;
+
+  &.is_off {
+    background: $buttonBGColorOff;
+    color: #B4B4B4;
+
+    &:hover {
+      cursor: no-drop;
+      background: $buttonBGColorOff;
+    }
+
+    &:active {
+      background: $buttonBGColorOff;
+    }
+  }
+
+  &:hover {
+    background: lighten($buttonBGColor, 5);
+  }
+
+  &:active {
+    background: darken($buttonBGColor, 5);
+  }
+}
+
