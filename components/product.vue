@@ -1,36 +1,52 @@
 <template>
-  <div class="product_card">
-    <div class="img">
-      <img :src="product.img" alt="">
+  <transition
+    duration="1000"
+    name="custom-classes-transition"
+    leave-active-class="animated scaleDown"
+  >
+    <div class="card" v-show="visible">
+      <div class="img">
+        <img :src="product.img" alt="">
+      </div>
+      <div class="info">
+        <h4>{{ product.title }}</h4>
+        <p class="description" :title="product.description">{{ product.description }}</p>
+        <span class="price">{{ formatPrice }} руб.</span>
+      </div>
+      <button class="delete" @click="removeCard()"></button>
     </div>
-    <div class="info">
-      <h4>{{ product.title }}</h4>
-      <p class="description">{{ product.description }}</p>
-      <span class="price">{{ formatPrice }} руб.</span>
-    </div>
-
-    <button class="delete">
-
-    </button>
-  </div>
+  </transition>
 </template>
 
 <script>
 export default {
   name: "product",
   props: {
-    product: Object
+    product: Object,
+  },
+  data(){
+    return{
+      visible: true,
+    }
   },
   computed: {
     formatPrice() {
       return new Intl.NumberFormat('ru-RU').format(this.product.price);
+    }
+  },
+  methods: {
+    removeCard(){
+      this.visible = false;
+      setTimeout(()=>{
+        this.$store.commit('products/removeProduct', this.product.id);
+      }, 500)
     }
   }
 }
 </script>
 
 <style lang="scss" scoped>
-.product_card {
+.card {
   width: 332px;
   position: relative;
   height: 423px;
@@ -63,6 +79,10 @@ export default {
 
     .description {
       font-size: 16px;
+      display: -webkit-box;
+      -webkit-line-clamp: 4;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
     }
 
     .price {
@@ -86,19 +106,29 @@ export default {
     right: -10px;
     top: -10px;
     transition: all 200ms;
-    &:hover{
+
+    &:hover {
       transform: scale(1.3);
     }
-    &:active{
+
+    &:active {
       transform: scale(1);
     }
   }
-  &:hover{
+
+  &:hover {
     box-shadow: 0px 20px 50px rgba(0, 0, 0, 0.1), 0px 6px 20px rgba(0, 0, 0, 0.2);
-    button.delete{
+
+    button.delete {
       display: block;
       opacity: 1;
     }
   }
+
+}
+
+.scaleDown {
+  transform: translateY(-50px);
+  opacity: 0;
 }
 </style>

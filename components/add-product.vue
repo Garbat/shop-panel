@@ -71,16 +71,32 @@ export default {
       if (!this.product.img) this.errors.img = errorText;
       if (!this.product.price) this.errors.price = errorText;
 
-      if (!this.errors.title && !this.errors.img && !this.errors.price) {
-
+      if (this.checkErrors()) {
+        this.product.id = this.$store.getters["products/getLastID"]+1;
+        this.$store.commit('products/addProduct', this.product);
+        this.product = {
+          title: '',
+          description: '',
+          img: '',
+          price: ''
+        }
       }
+    },
 
-      return false;
+    checkErrors() {
+      for (let i in this.errors) {
+        if (!!this.errors[i]) {
+          return false
+        }
+      }
+      return true;
     }
   }
 }
 </script>
 
 <style lang="scss" scoped>
-
+.add_product{
+  max-width: 332px;
+}
 </style>

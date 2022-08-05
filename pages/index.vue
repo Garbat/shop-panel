@@ -11,10 +11,15 @@
         <AddProductForm></AddProductForm>
       </div>
       <div class="products">
-          <ProductCard v-for="(product, index) in $store.state.products.items" :key="index"
-             :product="product"
-            class="product_card"
-          ></ProductCard>
+        <div v-for="(product, index) in $store.state.products.items" :key="product.id"
+          :class="{product_card: true, visible: visibleProduct}"
+             :style="{'transition-delay': (index+1)*100+'ms'}"
+
+        >
+          <ProductCard
+                       :product="product"></ProductCard>
+        </div>
+
       </div>
     </div>
   </div>
@@ -26,9 +31,18 @@ import ProductCard from "~/components/product";
 
 export default {
   name: 'IndexPage',
+  data() {
+    return {
+      visibleProduct: false,
+    }
+  },
   components: {
     AddProductForm,
     ProductCard
+  },
+  mounted() {
+    console.log(this.prod)
+    this.visibleProduct = true;
   }
 }
 </script>
@@ -61,11 +75,19 @@ export default {
 
   }
 
-  .products{
+  .products {
     display: flex;
     flex-wrap: wrap;
-    .product_card{
 
+    .product_card {
+      opacity: 0;
+      transform: translateY(50px);
+      transition: transform 500ms, opacity 500ms, box-shadow 300ms;
+
+      &.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
   }
 }

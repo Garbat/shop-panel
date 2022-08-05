@@ -23,6 +23,7 @@ export default {
 <style lang="scss" scoped>
 textarea{
   height: 100px;
+  max-width: 100%;
   &:focus{
     border: none;
     outline: none;
