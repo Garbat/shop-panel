@@ -39,7 +39,7 @@ export default {
       this.visible = false;
       setTimeout(()=>{
         this.$store.commit('products/removeProduct', this.product.id);
-      }, 500)
+      }, 100)
     }
   }
 }

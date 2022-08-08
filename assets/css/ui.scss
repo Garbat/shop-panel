@@ -15,7 +15,7 @@ $buttonBGColorOff: #EEEEEE;
     //line-height: 12px;
   }
 
-  input, select {
+  input, select, .select_wrapper {
     background: #FFFEFB;
     box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
     border-radius: 4px;
@@ -111,6 +111,61 @@ button {
 
   &:active {
     background: darken($buttonBGColor, 5);
+  }
+}
+
+.ui_component {
+  .select_wrapper {
+    display: flex;
+    align-items: center;
+
+    position: relative;
+    cursor: pointer;
+
+
+    &:after {
+      content: "";
+      background: url("assets/images/arrow.svg") center center no-repeat;
+      background-size: 100%;
+      position: absolute;
+      right: 10px;
+      top: calc(50% - 3px);
+      width: 10px;
+      height: 10px;
+      z-index: 100;
+      transition: transform 200ms;
+    }
+
+    &.open {
+      ul {
+        height: auto;
+      }
+
+      &:after {
+        transform: rotate(180deg);
+      }
+    }
+
+    ul {
+      height: 0;
+      overflow: hidden;
+      background: white;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      width: 100%;
+      border-radius: 0 0 4px 4px;
+
+
+      li {
+        height: 36px;
+        padding: 10px;
+        transition: background-color 100ms;
+        &:hover{
+          background: rgba(0, 0, 0, 0.1);
+        }
+      }
+    }
   }
 }
 

@@ -94,9 +94,3 @@ export default {
   }
 }
 </script>
-
-<style lang="scss" scoped>
-.add_product{
-  max-width: 332px;
-}
-</style>
